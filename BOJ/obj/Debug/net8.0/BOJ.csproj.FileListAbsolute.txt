@@ -1,0 +1,14 @@
+C:\Users\admin\Desktop\BOJ\bin\Debug\net8.0\BOJ.exe
+C:\Users\admin\Desktop\BOJ\bin\Debug\net8.0\BOJ.deps.json
+C:\Users\admin\Desktop\BOJ\bin\Debug\net8.0\BOJ.runtimeconfig.json
+C:\Users\admin\Desktop\BOJ\bin\Debug\net8.0\BOJ.dll
+C:\Users\admin\Desktop\BOJ\bin\Debug\net8.0\BOJ.pdb
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\BOJ.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\BOJ.AssemblyInfoInputs.cache
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\BOJ.AssemblyInfo.cs
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\BOJ.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\BOJ.dll
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\refint\BOJ.dll
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\BOJ.pdb
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\BOJ.genruntimeconfig.cache
+C:\Users\admin\Desktop\BOJ\obj\Debug\net8.0\ref\BOJ.dll
