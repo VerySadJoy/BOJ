@@ -5,66 +5,97 @@ namespace Joy
 {
     class Q14940
     {
+        static int[] dx = {1, -1, 0, 0};
+        static int[] dy = {0, 0, 1, -1};
+
         static void Main()
         {
-            string[] input = Console.ReadLine().Split();
-            int n = int.Parse(input[0]);
-            int m = int.Parse(input[1]);
-            int[] dx = {0, 0, -1, 1};
-            int[] dy = {-1, 1, 0, 0};
+            string[] nm = Console.ReadLine().Split();
+            int n = int.Parse(nm[0]);
+            int m = int.Parse(nm[1]);
 
-            int[][] graph = new int[n][];
-            int[,] distances = new int[n, m];
-
-            int startX = 0;
-            int startY = 0;
+            int[,] graph = new int[n, m];
 
             for (int i = 0; i < n; i++)
             {
-                graph[i] = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+                string[] row = Console.ReadLine().Split();
                 for (int j = 0; j < m; j++)
                 {
-                    if (graph[i][j] == 2)
-                    {
-                        startX = i;
-                        startY = j;
-                    }
-                    else if (graph[i][j] == 0)
-                    {
-                        distances[i, j] = -1;
-                    }
+                    graph[i, j] = int.Parse(row[j]);
                 }
             }
 
-            Queue<(int, int)> queue = new Queue<(int, int)>();
-            queue.Enqueue((startX, startY));
-            distances[startX, startY] = 0;
-
-            while (queue.Count > 0)
-            {
-                var (x, y) = queue.Dequeue();
-
-                for (int k = 0; k < 4; k++)
-                {
-                    int nx = x + dx[k];
-                    int ny = y + dy[k];
-
-                    if (nx >= 0 && nx < n && ny >= 0 && ny < m && distances[nx, ny] == -1)
-                    {
-                        distances[nx, ny] = distances[x, y] + 1;
-                        queue.Enqueue((nx, ny));
-                    }
-                }
-            }
+            int[] targetLocation = Find(graph, n, m);
+            int[,] distances = BFS(targetLocation, graph, n, m);
 
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    Console.Write(distances[i, j] + " ");
+                    if (graph[i, j] == 0)
+                    {
+                        Console.Write(0 + " ");
+                    }
+                    else if (distances[i, j] == 0)
+                    {
+                        Console.Write(-1 + " ");
+                    }
+                    else
+                    {
+                        Console.Write(distances[i, j] + " ");
+                    }
                 }
                 Console.WriteLine();
             }
         }
+        static int[,] BFS(int[] start, int[,] graph, int n, int m)
+        {
+            bool[,] visited = new bool[n, m];
+            int[,] distance = new int[n, m];
+
+            Queue<int[]> queue = new Queue<int[]>();
+            queue.Enqueue(new int[] {start[0], start[1]});
+            visited[start[0], start[1]] = true;
+
+            while (queue.Count > 0)
+            {
+                int[] current = queue.Dequeue();
+                int x = current[0];
+                int y = current[1];
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int nx = x + dx[i];
+                    int ny = y + dy[i];
+
+                    if (nx >= 0 && nx < n && ny >= 0 && ny < m && !visited[nx, ny] && graph[nx, ny] == 1)
+                    {
+                        visited[nx, ny] = true;
+                        distance[nx, ny] = distance[x, y] + 1;
+                        queue.Enqueue(new int[] {nx, ny});
+                    }
+                }
+            }
+
+            return distance;
+        }
+
+        static int[] Find(int[,] graph, int n, int m)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if (graph[i, j] == 2)
+                    {
+                        return new int[] {i, j};
+                    }
+                }
+            }
+            return null;
+        }
+
+        
     }
+
 }
