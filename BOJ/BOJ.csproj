@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <StartupObject>Joy.Q11047</StartupObject>
+    <StartupObject>Joy.Q2162</StartupObject>
   </PropertyGroup>
 
 </Project>
