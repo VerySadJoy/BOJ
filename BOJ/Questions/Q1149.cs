@@ -1,6 +1,6 @@
 //Question No: 1149
 //Title: RGB거리
-//Tier: silver I
+//Tier: Silver I
 namespace Joy{
     class Q1149
     {
