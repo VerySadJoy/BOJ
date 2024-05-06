@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <StartupObject>Joy.Q15663</StartupObject>
+    <StartupObject>Joy.Q11779</StartupObject>
   </PropertyGroup>
 
 </Project>
