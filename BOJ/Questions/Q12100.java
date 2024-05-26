@@ -36,7 +36,7 @@ public class Main {
     public static int[][] move(int[][] board, int direction) {
         int[][] newBoard = new int[N][N];
         switch (direction) {
-            case 0: // Up
+            case 0:
                 for (int j = 0; j < N; j++) {
                     int idx = 0;
                     for (int i = 0; i < N; i++) {
