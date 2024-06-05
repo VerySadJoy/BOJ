@@ -4,7 +4,7 @@
 import java.io.DataInputStream;
 import java.io.IOException;
 
-public class Main extends FastInput {
+public class Q18917 extends FastInput {
     private void solution() throws Exception {
         int m = nextInt();
         long sum = 0;
@@ -31,7 +31,7 @@ public class Main extends FastInput {
 
     public static void main(String[] args) throws Exception {
         initFI();
-        new Main().solution();
+        new Q9848().solution();
     }
 }
 
