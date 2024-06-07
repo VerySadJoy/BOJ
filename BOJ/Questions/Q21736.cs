@@ -1,4 +1,4 @@
-//checkuestion No: 21736
+//Question No: 21736
 //Title: 헌내기는 친구가 필요해
 //Tier: Silver II
 namespace Joy

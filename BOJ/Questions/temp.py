@@ -1,26 +1,40 @@
-from itertools import combinations
-
-def ArrayChallenge():
-    arr = [16, 22, 35, 8, 20, 1, 21, 11]
-    arr.sort()
-    comb = list(combinations(arr, int(len(arr) / 2)))
-    print(comb)
-    for i in comb:
-        sum1 = sum(i)
-        temp = arr.copy()
-        for j in i:
-            temp.remove(j)
-        sum2 = sum(temp)
-        if (sum1 == sum2):
-            l1 = sorted(list(i))
-            l2 = sorted(temp)
-            strlst = list(map(str, l1 + l2))
-            result = ','.join(strlst)
-            # code goes here
-            return result
-    return -1
-
+def find_lcs(A, B):
+    N = len(A)
+    M = len(B)
+    dp = [[0] * (M + 1) for _ in range(N + 1)]
     
+    for i in range(1, N + 1):
+        for j in range(1, M + 1):
+            if A[i - 1] == B[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+    
+    lcs_length = dp[N][M]
+    lcs = []
+    
+    i, j = N, M
+    while i > 0 and j > 0:
+        if A[i - 1] == B[j - 1]:
+            lcs.append(A[i - 1])
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] > dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+    
+    lcs.reverse()
+    print(lcs)
+    return lcs_length, lcs
 
-# keep this function call here 
-print(ArrayChallenge())
+N = int(input().strip())
+A = list(map(int, input().strip().split()))
+M = int(input().strip())
+B = list(map(int, input().strip().split()))
+
+length, lcs = find_lcs(A, B)
+
+print(length)
+if length > 0:
+    print(' '.join(map(str, lcs)))
