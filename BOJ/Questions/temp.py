@@ -1,57 +1,59 @@
-def shift_chars(correct_word, real, indices):
-    correct_word_list = list(correct_word)
-    n = len(correct_word)
+from collections import deque
+
+def get_direction(from_pos, to_pos):
+    directions = {
+        (-1, 0): 'A',
+        (-1, 1): 'Q',
+        (0, 1): 'W',
+        (1, 1): 'E',
+        (1, 0): 'D',
+        (1, -1): 'C',
+        (0, -1): 'X',
+        (-1, -1): 'Z'
+    }
+    move = (to_pos[0] - from_pos[0], to_pos[1] - from_pos[1])
+    return directions[move]
+
+def bfs_path(start):
+    queue = deque([(start, [])])
+    visited = set()
+    visited.add(start)
     
-    temp = correct_word_list.copy()
+    while queue:
+        current_pos, path = queue.popleft()
+        if current_pos == (0, 0):
+            return path
+        
+        for dx in [-1, 0, 1]:
+            for dy in [-1, 0, 1]:
+                if dx == 0 and dy == 0:
+                    continue
+                next_pos = (current_pos[0] + dx, current_pos[1] + dy)
+                if next_pos not in visited:
+                    visited.add(next_pos)
+                    queue.append((next_pos, path + [next_pos]))
     
-    if len(indices) > 1:
-        for i in range(len(indices)):
-            temp[indices[i]] = correct_word_list[indices[i - 1]]
-    elif len(indices) == 1:
-        for i in range(0, 5):
-            if (correct_word[i] == 'F'):
-                temp[indices[0]] = real[i]
+    return None
 
-    return ''.join(temp)
-
-def solve_wordle(N, results):
-    import string
-
-    def check_constraints(results):
-        for result in results:
-            if result.count('G') == 4:
-                if result.count('B') != 1:
-                    return False
-        return True
-
-    def generate_guesses(correct_word, results):
-        guesses = []
-        for result in results:
-            guess = list(correct_word)
-            used_word = []
-            for i, color in enumerate(result):
-                #print(guess)
-                if color == 'B':
-                    guess[i] = 'F'
-                elif color == 'Y':
-                    used_word.append(i)
-            guess = shift_chars(guess, correct_word, used_word)
-            guesses.append("".join(guess))
-        return guesses
-
-    if not check_constraints(results):
-        print("IMPOSSIBLE")
-        return
+def generate_instructions(positions):
+    instructions = []
     
-    correct_word = "ABCDE"
-    guesses = generate_guesses(correct_word, results)
+    for pos in positions:
+        path = bfs_path(pos)
+        if path is not None:
+            directions = [get_direction(pos if i == 0 else path[i - 1], path[i]) for i in range(len(path))]
+            instructions.append(''.join(directions))
     
-    print(correct_word)
-    for guess in guesses:
-        print(guess)
+    return instructions
 
+def main():
+    n = int(input().strip())
+    positions = [tuple(map(int, input().strip().split())) for _ in range(n)]
+    
+    instructions = generate_instructions(positions)
+    
+    for instruction in instructions:
+        print(instruction)
 
-N = int(input().strip())
-results = [input().strip() for _ in range(N)]
-
-solve_wordle(N, results)
+if __name__ == "__main__":
+    main()
