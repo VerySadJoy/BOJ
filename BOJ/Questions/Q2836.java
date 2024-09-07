@@ -1,65 +1,74 @@
 //Question No: 2836
 //Title: 수상 택시
 //Tier: Gold III
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
+
+class Taxi implements Comparable<Taxi> {
+    long start;
+    long end;
+
+    public Taxi(long start, long end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public int compareTo(Taxi other) {
+        if (this.end == other.end) {
+            return Long.compare(this.start, other.start);
+        } else {
+            return Long.compare(this.end, other.end);
+        }
+    }
+}
 
 public class Main {
-    
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+    public static void main(String[] args) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer tokenizer = new StringTokenizer(bufferedReader.readLine());
 
-        long totalLength = Long.parseLong(st.nextToken());
-        long fixedLength = Long.parseLong(st.nextToken());
-        
-        List<Segment> segments = new ArrayList<>();
-        for (int i = 0; i < totalLength; i++) {
-            st = new StringTokenizer(br.readLine());
-            long start = Long.parseLong(st.nextToken());
-            long end = Long.parseLong(st.nextToken());
+        long numPassengers = Long.parseLong(tokenizer.nextToken());
+        long baseDistance = Long.parseLong(tokenizer.nextToken());
+        long totalDistance = baseDistance;
+
+        List<Taxi> reverseTaxis = new ArrayList<>();
+
+        for (int i = 0; i < numPassengers; i++) {
+            tokenizer = new StringTokenizer(bufferedReader.readLine());
+            long start = Long.parseLong(tokenizer.nextToken());
+            long end = Long.parseLong(tokenizer.nextToken());
+
             if (start > end) {
-                segments.add(new Segment(end, start));
+                reverseTaxis.add(new Taxi(start, end));
             }
         }
-        
-        Collections.sort(segments);
-        
-        long lastEnd = segments.get(0).end;
-        long combinedLength = segments.get(0).end - segments.get(0).start;
-        for (int i = 1; i < segments.size(); i++) {
-            Segment seg = segments.get(i);
-            if (lastEnd >= seg.start) {
-                if (lastEnd < seg.end) {
-                    combinedLength += seg.end - lastEnd;
-                    lastEnd = seg.end;
-                }
+
+        if (reverseTaxis.isEmpty()) {
+            System.out.println(totalDistance);
+            return;
+        }
+
+        Collections.sort(reverseTaxis);
+
+        long minEnd = reverseTaxis.get(0).end;
+        long maxStart = reverseTaxis.get(0).start;
+
+        for (int i = 1; i < reverseTaxis.size(); i++) {
+            long nextEnd = reverseTaxis.get(i).end;
+            long nextStart = reverseTaxis.get(i).start;
+
+            if (nextEnd <= maxStart) {
+                maxStart = Math.max(maxStart, nextStart);
             } else {
-                combinedLength += seg.end - seg.start;
-                lastEnd = seg.end;
+                totalDistance += 2 * (maxStart - minEnd);
+                minEnd = nextEnd;
+                maxStart = nextStart;
             }
         }
-        
-        System.out.println(fixedLength + combinedLength * 2);
-    }
-    
-    static class Segment implements Comparable<Segment> {
-        long start;
-        long end;
-        
-        Segment(long start, long end) {
-            this.start = start;
-            this.end = end;
-        }
-        
-        @Override
-        public int compareTo(Segment other) {
-            return Long.compare(this.start, other.start);
-        }
+
+        totalDistance += 2 * (maxStart - minEnd);
+
+        System.out.println(totalDistance);
     }
 }
