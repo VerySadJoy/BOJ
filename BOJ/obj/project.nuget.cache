@@ -1,12 +1,15 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "h6JCXtv65CCI8ywLOkmyAPkPd47ozR5V/8fxlIpTJzcWBSUvdBvwZLN2EG0U0ew5NGYIhyf6/ClvXhnl25JzQQ==",
-=======
-  "dgSpecHash": "AMuKgYW5Pa3El/7ojKymoK1+y80mQj6huafNZ6Lxp/I23ZVGAhKSuOhe0gWVBvCvFTaime26Lxedb5UzRw9jKQ==",
->>>>>>> parent of 2359b45 (Merge branch 'main' of https://github.com/VerySadJoy/BOJ)
   "success": true,
   "projectFilePath": "C:\\Users\\admin\\Documents\\GitHub\\BOJ\\BOJ\\BOJ.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\admin\\Documents\\GitHub\\BOJ\\BOJ\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
